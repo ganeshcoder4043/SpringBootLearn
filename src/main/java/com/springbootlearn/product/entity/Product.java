@@ -21,6 +21,7 @@ public class Product {
 	private String description;
 	private Double price;
 	
+	
 	@ManyToOne(fetch = FetchType.LAZY)    // Foreign key hamesha Many side me hoti hai that means @ManyToOne .
 	@JoinColumn(name = "category_id", nullable = false)
 	private Category category;

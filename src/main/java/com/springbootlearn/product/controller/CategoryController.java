@@ -17,8 +17,16 @@ import com.springbootlearn.product.dto.CategoryDTO;
 import com.springbootlearn.product.exception.CategoryAlreadyExistsException;
 import com.springbootlearn.product.service.CategoryService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
+
+@Tag(
+		name = "Category REST APIs CRUD Operations",
+		description = "CREATE, READ, UPDATE and DELETE Operations for Category REST APIs"
+		)
 @RestController
 @RequestMapping("/api/categories")
 @AllArgsConstructor
@@ -44,6 +52,12 @@ public class CategoryController {
 //		}
 	
 	//create categories 
+	@ApiResponse(
+			responseCode = "201",
+			description = "CREATED")
+	@Operation(
+			summary = "Create Category",
+			description = "REST APIs For Create Category")
 	@PostMapping
 	public ResponseEntity<?> careteCategory(@RequestBody CategoryDTO categoryDTO) {
 
@@ -54,18 +68,27 @@ public class CategoryController {
 		
 	
 	// get all categories
+	@Operation(
+			summary = "Fetch All Category",
+			description = "REST APIs For Fetch All Category")
 	@GetMapping
 	public List<CategoryDTO> getAllCategories(){
 		return categoryService.getAllCategories();
 	}
 
 	// get category by id
+	@Operation(
+			summary = "Fetch Category By Category id",
+			description = "REST APIs For Fetch Category By Category id")
 	@GetMapping("/{id}")
 	public CategoryDTO getCategoryById(@PathVariable Long id) {
 		return categoryService.getCategoryById(id);
 	}
 	
 	// delete category by id
+	@Operation(
+			summary = "Delete Category By Category id",
+			description = "REST APIs For Delete Category By Category id")
 	@DeleteMapping("/{id}")
 	public String deleteCategory(@PathVariable Long id) {
 		return categoryService.deleteCategory(id);
