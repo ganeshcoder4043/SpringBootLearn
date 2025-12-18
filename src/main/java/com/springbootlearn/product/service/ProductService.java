@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.springbootlearn.product.dto.ProductDTO;
 import com.springbootlearn.product.entity.Category;
 import com.springbootlearn.product.entity.Product;
+import com.springbootlearn.product.exception.CategoryNotFoundException;
 import com.springbootlearn.product.mapper.ProductMapper;
 import com.springbootlearn.product.repository.CategoryRepository;
 import com.springbootlearn.product.repository.ProductRepository;
@@ -25,7 +26,7 @@ public class ProductService {
 	public ProductDTO createProduct(ProductDTO productDTO) {
 		
 		Category category = categoryRepository.findById(productDTO.getCategoryId())
-				.orElseThrow(()-> new RuntimeException("Category Not Found"));
+				.orElseThrow(()-> new CategoryNotFoundException("Category Id: "+productDTO.getCategoryId() +" Not Found"));
 		
 		// DTO to Entity
 		Product product = ProductMapper.toProductEntity(productDTO, category);

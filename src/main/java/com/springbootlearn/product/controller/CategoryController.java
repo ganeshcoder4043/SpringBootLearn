@@ -3,6 +3,7 @@ package com.springbootlearn.product.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.springbootlearn.product.dto.CategoryDTO;
+import com.springbootlearn.product.exception.CategoryAlreadyExistsException;
 import com.springbootlearn.product.service.CategoryService;
 
 import lombok.AllArgsConstructor;
@@ -24,11 +26,32 @@ public class CategoryController {
 	
 	private CategoryService categoryService;
 	
+//	//create categories 
+//	@PostMapping
+//	public ResponseEntity<CategoryDTO> careteCategory(@RequestBody CategoryDTO categoryDTO) {
+//		return new ResponseEntity<>( categoryService.createCategory(categoryDTO),HttpStatus.CREATED);
+//	}
+	
+//	//create categories 
+//		@PostMapping
+//		public ResponseEntity<?> careteCategory(@RequestBody CategoryDTO categoryDTO) {
+//			try {
+//				CategoryDTO savedCategory = categoryService.createCategory(categoryDTO);
+//				return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+//			} catch (CategoryAlreadyExistsException ex) {
+//				return ResponseEntity.status(HttpStatus.CONFLICT).body(ex.getMessage());
+//			}
+//		}
+	
 	//create categories 
 	@PostMapping
-	public ResponseEntity<CategoryDTO> careteCategory(@RequestBody CategoryDTO categoryDTO) {
-		return new ResponseEntity<>( categoryService.createCategory(categoryDTO),HttpStatus.CREATED);
+	public ResponseEntity<?> careteCategory(@RequestBody CategoryDTO categoryDTO) {
+
+		CategoryDTO savedCategory = categoryService.createCategory(categoryDTO);
+		return ResponseEntity.status(HttpStatus.CREATED).body(savedCategory);
+
 	}
+		
 	
 	// get all categories
 	@GetMapping
